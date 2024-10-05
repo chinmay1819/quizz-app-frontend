@@ -1,6 +1,5 @@
 import { Component, inject, NgModule, OnInit } from '@angular/core';
 import { WebSocketService } from '../../services/websocket.service';
-
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -30,8 +29,10 @@ export class QuizzComponent implements OnInit {
   constructor(private webSocketService: WebSocketService) {}
 
   ngOnInit(): void {
-    this.username = prompt('Enter your username:') || 'Guest';
-
+    while (!this.username.trim()) {
+      const input = prompt('Enter your username:');
+      this.username = input !== null ? input.trim() : ''; 
+    }
     this.webSocketService.messages.subscribe((data) => {
       if (data) {
         if (data.problem) {
@@ -41,20 +42,45 @@ export class QuizzComponent implements OnInit {
           this.winner = data.winner;
           this.openSnackBar();
         }
-        
+        if(data.problem_not_available){
+          this.openSnackBarProblem(data.problem_not_available);
+        }
+        if(data.issue){
+          this.openSnackBarIssue(data.issue);
+        }
       }
     });
   }
 
   openSnackBar(){
-    const snackBarRef = this._snackBar.open(`Winner is ${this.winner}`)
+    const snackBarRef = this._snackBar.open(`Winner is ${this.winner}`,'',{
+      duration:3000
+    })
     snackBarRef.onAction().subscribe(()=>{
       console.log('Winner is : ',this.winner);
     })
   
   }
 
+  openSnackBarProblem(problemMessage:string){
+    const snackBarRef = this._snackBar.open(problemMessage,'',{
+      duration:3000
+    })
+    snackBarRef.onAction().subscribe(()=>{
+      console.log(`There is some problem : ${problemMessage}`);
+    })
+  }
 
+
+  openSnackBarIssue(issueMessage:string){
+    const snackBarRef = this._snackBar.open(issueMessage,'',{
+      duration:3000
+    })
+
+    snackBarRef.onAction().subscribe(()=>{
+      console.log('There is an issue',issueMessage);
+    })
+  }
 
   submitAnswer(): void {
     this.webSocketService.sendMessage({ answer: this.answer, username: this.username });
