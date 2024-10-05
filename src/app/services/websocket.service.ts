@@ -14,7 +14,8 @@ export class WebSocketService implements OnDestroy {
     }
   
     private connect(): void {
-      this.socket = new WebSocket('ws://localhost:8000/ws');
+    //   this.socket = new WebSocket('ws://localhost:8000/ws');
+    this.socket = new WebSocket('ws://176r78fj-8000.inc1.devtunnels.ms/ws')
   
       this.socket.onopen = () => {
         console.log('WebSocket connection established.');
@@ -58,7 +59,6 @@ export class WebSocketService implements OnDestroy {
       return this.messageSubject.asObservable();
     }
   
-    // Cleanup method to close the WebSocket connection
     ngOnDestroy(): void {
       if (this.socket) {
         this.socket.close();
