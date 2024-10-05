@@ -1,0 +1,17 @@
+<div class="quiz-container">
+    <mat-card class="quiz-card">
+      <h1>Math Quiz</h1>
+      <div id="problem">
+        {{ problem }} = ?
+      </div>
+      <div class="answer">
+            <div class="form-field">
+                <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Answer</mat-label>
+                <input matInput [(ngModel)]="answer" name="answer" type="text" placeholder="Enter your answer" required>
+                </mat-form-field>
+            </div>
+
+        <button mat-flat-button style="border-radius: 0;" (click)="submitAnswer()">Submit</button>
+    
+      </div>

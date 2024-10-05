@@ -1,0 +1,18 @@
+.navbar {
+    position: relative;
+    height: 50px;
+    background-color: rgba(255, 254, 254, 0.775);
+    display: flex;
+    justify-content: space-between; /* Spread logo and buttons apart */
+    align-items: center; /* Vertically center items */
+    padding: 0 20px; /* Optional: add some padding to the navbar */
+    border-bottom: 1px solid #e2e7ef;
+ 
+}
+
+.quiz-logo{
+    img{
+        width: 50px;
+        height: 50px;
+    }
+}
