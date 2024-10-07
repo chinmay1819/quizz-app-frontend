@@ -15,7 +15,7 @@ export class WebSocketService implements OnDestroy {
   
     private connect(): void {
     //   this.socket = new WebSocket('ws://localhost:8000/ws');
-    this.socket = new WebSocket('ws://13.239.135.191/ws');
+    this.socket = new WebSocket('ws://3.25.121.96/ws');
     
       this.socket.onopen = () => {
         console.log('WebSocket connection established.');
